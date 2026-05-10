@@ -128,32 +128,46 @@ app.post('/api/data', (req, res) => {
 // API: AI Proxy (Forward requests to local Ollama)
 app.post('/api/ai', async (req, res) => {
     const OLLAMA_SERVER_URL = "http://192.168.0.32:11434/api/generate";
+    console.log(`[AI Proxy] Request received. Model: ${req.body.model}`);
     
     try {
         const payload = {
             ...req.body,
             options: {
                 ...(req.body.options || {}),
-                keep_alive: "5m" // Ensure memory management
+                keep_alive: "5m"
             }
         };
+
+        // Node 18 fetch with AbortController for timeout
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout
 
         const response = await fetch(OLLAMA_SERVER_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            signal: controller.signal
         });
+
+        clearTimeout(timeout);
 
         if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(`Ollama responded with ${response.status}: ${errorText}`);
+            console.error(`[AI Proxy] Ollama error (${response.status}):`, errorText);
+            throw new Error(`Ollama responded with ${response.status}`);
         }
 
         const data = await response.json();
+        console.log(`[AI Proxy] Success.`);
         res.json(data);
     } catch (e) {
-        console.error("AI Proxy Error:", e);
-        res.status(500).json({ error: "AI Proxy Failed", message: e.message });
+        const isTimeout = e.name === 'AbortError';
+        console.error(`[AI Proxy] Failed:`, isTimeout ? "Timeout (60s)" : e.message);
+        res.status(500).json({ 
+            error: "AI Proxy Failed", 
+            message: isTimeout ? "AI 요청 시간 초과 (60초)" : e.message 
+        });
     }
 });
 
