@@ -107,7 +107,17 @@ async function runTesseractVersion2(imageSource) {
 async function processOcrImage(event) {
     const file = event.target.files[0]; if (!file) return;
     const modalContent = document.getElementById('modalContent');
-    modalContent.classList.add('ai-border');
+    
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.id = "ocrLoadingOverlay";
+    loadingOverlay.className = "absolute inset-0 bg-white/60 backdrop-blur-[2px] z-50 flex items-center justify-center rounded-2xl soft-pulse";
+    loadingOverlay.innerHTML = '<span class="text-orange-600 font-bold text-sm">📸 이미지 분석 중...</span>';
+
+    if (modalContent) {
+        modalContent.classList.add('ai-border');
+        modalContent.appendChild(loadingOverlay);
+    }
+    
     showToast("스마트 분석 중...");
     let processedFile = await convertHeicIfNecessary(file);
     const ocrPromise = new Promise(resolve => {
@@ -133,9 +143,14 @@ async function processOcrImage(event) {
             applyDecodedInfo(decodeMatterPayload(qrCode));
         }
         if (ocrCode) handleInput(ocrCode);
-        modalContent.classList.remove('ai-border');
         if (ocrCode || qrCode) showToast("분석 성공!"); else showToast("인식 정보 없음");
-    } catch (e) { modalContent.classList.remove('ai-border'); showToast("분석 오류"); }
+    } catch (e) { 
+        showToast("분석 오류"); 
+    } finally {
+        if (modalContent) modalContent.classList.remove('ai-border');
+        const overlay = document.getElementById('ocrLoadingOverlay');
+        if (overlay) overlay.remove();
+    }
     event.target.value = '';
 }
 
