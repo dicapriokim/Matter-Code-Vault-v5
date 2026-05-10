@@ -26,6 +26,9 @@ readmeContent = readmeContent.replace(/> Matter Device Management & QR Code Back
 // Guide Section
 readmeContent = readmeContent.replace(/## 📖 Quick Start Guide \(v.*\)/g, `## 📖 Quick Start Guide (v${version})`);
 
+// Footer Signature
+readmeContent = readmeContent.replace(/Designed by \*\*돼지지렁이 \(PigWorm\)\*\* v\..*/g, `Designed by **돼지지렁이 (PigWorm)** v.${version}`);
+
 fs.writeFileSync(readmePath, readmeContent);
 console.log('✔ README.md updated.');
 
