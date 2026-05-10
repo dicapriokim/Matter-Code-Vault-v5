@@ -125,6 +125,38 @@ app.post('/api/data', (req, res) => {
     }
 });
 
+// API: AI Proxy (Forward requests to local Ollama)
+app.post('/api/ai', async (req, res) => {
+    const OLLAMA_SERVER_URL = "http://192.168.0.32:11434/api/generate";
+    
+    try {
+        const payload = {
+            ...req.body,
+            options: {
+                ...(req.body.options || {}),
+                keep_alive: "5m" // Ensure memory management
+            }
+        };
+
+        const response = await fetch(OLLAMA_SERVER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Ollama responded with ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json();
+        res.json(data);
+    } catch (e) {
+        console.error("AI Proxy Error:", e);
+        res.status(500).json({ error: "AI Proxy Failed", message: e.message });
+    }
+});
+
 // Start Server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server listening on port ${PORT}`);

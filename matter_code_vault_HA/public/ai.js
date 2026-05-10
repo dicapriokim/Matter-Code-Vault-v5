@@ -1,10 +1,10 @@
-const OLLAMA_BASE_URL = "http://192.168.0.32:11434";
+const OLLAMA_PROXY_URL = "/api/ai";
 const VISION_MODEL = "moondream";
 const REASONING_MODEL = "antigravity-model:3b";
 
 async function askOllama(prompt, model = REASONING_MODEL, isJson = false) {
     try {
-        const res = await fetch(`${OLLAMA_BASE_URL}/api/generate`, {
+        const res = await fetch(OLLAMA_PROXY_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -91,5 +91,5 @@ window.sendAiQuery = typeof sendAiQuery !== 'undefined' ? sendAiQuery : window.s
 if(typeof window.app !== 'undefined') window.app.sendAiQuery = window.sendAiQuery;
 window.suggestDeviceName = typeof suggestDeviceName !== 'undefined' ? suggestDeviceName : window.suggestDeviceName;
 if(typeof window.app !== 'undefined') window.app.suggestDeviceName = window.suggestDeviceName;
-window.OLLAMA_BASE_URL = typeof OLLAMA_BASE_URL !== 'undefined' ? OLLAMA_BASE_URL : window.OLLAMA_BASE_URL;
-if(typeof window.app !== 'undefined') window.app.OLLAMA_BASE_URL = window.OLLAMA_BASE_URL;
+window.OLLAMA_PROXY_URL = typeof OLLAMA_PROXY_URL !== 'undefined' ? OLLAMA_PROXY_URL : window.OLLAMA_PROXY_URL;
+if(typeof window.app !== 'undefined') window.app.OLLAMA_PROXY_URL = window.OLLAMA_PROXY_URL;
