@@ -1,8 +1,8 @@
-window.APP_VERSION = "3.2.1";
+window.APP_VERSION = "3.2.2";
 window.CURRENT_AI_MODEL = "antigravity-model:3b";
 window.VISION_MODEL = "moondream";
 window.REASONING_MODEL = "antigravity-model:3b";
-window.OLLAMA_BASE_URL = "http://192.168.0.32:11434";
+window.OLLAMA_PROXY_URL = "/api/ai";
 
 import './utils.js';
 import './ui.js';

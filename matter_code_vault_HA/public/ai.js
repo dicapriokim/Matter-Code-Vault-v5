@@ -1,6 +1,4 @@
-const OLLAMA_PROXY_URL = "/api/ai";
-const VISION_MODEL = "moondream";
-const REASONING_MODEL = "antigravity-model:3b";
+// Constants are now managed globally in script.js
 
 async function askOllama(prompt, model = REASONING_MODEL, isJson = false) {
     try {
