@@ -2,7 +2,7 @@
 // 모든 모듈에서 참조를 공유할 수 있도록 appState 객체로 통합 관리합니다.
 // ============================================================
 
-export const APP_VERSION = "3.2.5";
+export const APP_VERSION = "3.2.6";
 
 // --- OLLAMA AI CONFIG ---
 export const OLLAMA_BASE_URL = "http://192.168.0.32:11434";

@@ -141,8 +141,9 @@ async function processOcrImage(event) {
             document.getElementById('displayMtPayload').value = qrCode;
             document.getElementById('qrStatusIcon').classList.remove('hidden');
             applyDecodedInfo(decodeMatterPayload(qrCode));
+        } else if (ocrCode) {
+            handleInput(ocrCode);
         }
-        if (ocrCode) handleInput(ocrCode);
         if (ocrCode || qrCode) showToast("분석 성공!"); else showToast("인식 정보 없음");
     } catch (e) { 
         showToast("분석 오류"); 
@@ -200,7 +201,7 @@ async function executeAiAnalysis(base64Data) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: VISION_MODEL,
-                prompt: "Describe all visible Matter QR codes (starting with MT:) and 11-digit pairing codes in this image. Be precise.",
+                prompt: "Describe all visible Matter QR codes (starting with MT:) and 11-digit pairing codes in this image. Be precise. Pay close attention to slashed zeros '0' which are often misread as '8'.",
                 images: [base64Data],
                 stream: false,
                 options: { keep_alive: "5m" }
@@ -215,7 +216,7 @@ async function executeAiAnalysis(base64Data) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: REASONING_MODEL,
-                prompt: `Based on this description, extract the Matter QR (MT:...) and the 11-digit pairing code as JSON { "mt": "MT:...", "code": "xxxx-xxx-xxxx" }. Description: ${visionText}`,
+                prompt: `Rule: Be highly aware of common OCR errors where a slashed '0' is misread as an '8' in the pairing code. Based on this description, extract the Matter QR (MT:...) and the 11-digit pairing code as JSON { "mt": "MT:...", "code": "xxxx-xxx-xxxx" }. Description: ${visionText}`,
                 stream: false,
                 format: "json",
                 options: { temperature: 0.1, keep_alive: "5m" }
