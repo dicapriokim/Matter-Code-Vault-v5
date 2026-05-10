@@ -103,7 +103,7 @@ async function suggestDeviceName() {
         }
     } catch (err) {
         console.error("[AI-Naming] Error:", err);
-        showToast("작명 중 오류가 발생했습니다.");
+        showToast("작명 실패! HA 설정의 Ollama IP를 확인해 주세요.");
     } finally {
         if(statusEl) statusEl.classList.add('hidden');
     }
