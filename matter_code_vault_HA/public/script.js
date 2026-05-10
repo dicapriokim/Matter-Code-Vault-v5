@@ -1,4 +1,4 @@
-window.APP_VERSION = "5.0.2";
+window.APP_VERSION = "5.0.3";
 window.CURRENT_AI_MODEL = "antigravity-model:3b";
 window.VISION_MODEL = "moondream";
 window.REASONING_MODEL = "antigravity-model:3b";

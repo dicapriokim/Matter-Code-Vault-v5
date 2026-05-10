@@ -1,6 +1,6 @@
-# Matter Code Vault (v5.0.2)
+# Matter Code Vault (v5.0.3)
 
-> Matter Device Management & QR Code Backup/Restore Tool (v5.0.2)
+> Matter Device Management & QR Code Backup/Restore Tool (v5.0.3)
 
 Matter Code Vault is a powerful Home Assistant add-on designed for seamless Matter device management. Securely back up complex pairing codes and QR codes, and manage them intelligently using AI-driven features.
 
@@ -21,13 +21,13 @@ https://github.com/dicapriokim/Matter-Code-Vault-v5.git
 
 ---
 
-## 🏆 Official Release (v5.0.2)
+## 🏆 Official Release (v5.0.3)
 
 - **Backend AI Proxy**: Integrated backend proxy to resolve Mixed Content (HTTPS -> HTTP) and CORS issues, ensuring stable AI communication in Home Assistant environments.
 - **Dynamic Loading UI**: Soft pulsing "Analyzing..." indicators for AI and standard OCR/QR scans to provide clear visual feedback during processing.
 - **Local AI Engine (Ollama)**: Advanced reasoning using `antigravity-model:3b` for intelligent device naming and OCR error correction.
 - **Modular Architecture**: Optimized modular structure (`state.js`, `ui.js`, `ai.js`, `scanner.js`) for high performance and maintainability.
-- **Official Rebranding (v5.0.2)**: Transitioned from beta to official release as "Matter Code Vault".
+- **Official Rebranding (v5.0.3)**: Transitioned from beta to official release as "Matter Code Vault".
 - **Enhanced AI Reasoning**: Finalized context-aware AI engine for smart home automation accuracy.
 - **Smart Input States**: Polished UI with visual field state indicators for effortless registration.
 - **Adaptive Card Actions (v4.2.0)**: Sophisticated multi-stage hover interaction for device management icons.
@@ -36,7 +36,7 @@ https://github.com/dicapriokim/Matter-Code-Vault-v5.git
 
 ---
 
-## 📖 Quick Start Guide (v5.0.2)
+## 📖 Quick Start Guide (v5.0.3)
 
 ### 1. Initial Setup
 Before adding devices, configure your ecosystem in the **[Settings ⚙️]** menu to ensure data consistency:
@@ -75,7 +75,7 @@ This add-on features a built-in **Backend AI Proxy** to enable stable communicat
 
 ---
 
-Designed by **돼지지렁이 (PigWorm)** v.5.0.2
+Designed by **돼지지렁이 (PigWorm)** v.5.0.3
 
 ### 📄 라이선스 (License)
 이 프로젝트는 **MIT 라이선스** 하에 배포됩니다.  
