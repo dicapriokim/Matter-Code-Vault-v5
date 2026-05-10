@@ -1,6 +1,6 @@
-# Matter Code Vault HA (v3.2.8)
+# Matter Code Vault HA (v3.2.9)
 
-> Matter Device Management & QR Code Backup/Restore Tool (v3.2.8)
+> Matter Device Management & QR Code Backup/Restore Tool (v3.2.9)
 
 Matter Code Vault is a powerful Home Assistant add-on designed for seamless Matter device management. Securely back up complex pairing codes and QR codes, and manage them intelligently using AI-driven features.
 
@@ -21,7 +21,7 @@ https://github.com/dicapriokim/Matter-Code-Vault-Pcroom.git
 
 ---
 
-## ✨ Key Features (v3.2.8 Update)
+## ✨ Key Features (v3.2.9 Update)
 
 - **Backend AI Proxy**: Integrated backend proxy to resolve Mixed Content (HTTPS -> HTTP) and CORS issues, ensuring stable AI communication in Home Assistant environments.
 - **Dynamic Loading UI**: Soft pulsing "Analyzing..." indicators for AI and standard OCR/QR scans to provide clear visual feedback during processing.
@@ -33,7 +33,7 @@ https://github.com/dicapriokim/Matter-Code-Vault-Pcroom.git
 
 ---
 
-## 📖 Quick Start Guide
+## 📖 Quick Start Guide (v3.2.9)
 
 ### 1. Initial Setup
 Before adding devices, configure your ecosystem in the **[Settings ⚙️]** menu to ensure data consistency:

@@ -14,10 +14,8 @@ init: false
 map:
   - config:rw
   - share:rw
-options:
-  api_key: ""
-schema:
-  api_key: str?
+options: {}
+schema: {}
 # image: "matter-code-vault-{arch}"
 ingress: true
 ingress_port: 8099

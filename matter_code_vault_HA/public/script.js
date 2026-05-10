@@ -100,10 +100,6 @@ async function loadData() {
                     document.querySelectorAll('.app-version').forEach(el => el.textContent = 'v' + window.APP_VERSION);
                     document.title = `Matter Code Vault v${window.APP_VERSION}`;
                 }
-                if (addonConfig.api_key) {
-                    configs.apiKey = addonConfig.api_key;
-                    console.log("Synced API Key from HA Options");
-                }
             }
         } catch (configErr) {
             console.warn("Failed to sync HA config:", configErr);
@@ -121,14 +117,9 @@ async function loadData() {
             window.devices = json.devices || [];
             // Merge settings but prefer HA config for API key if it exists
             if (json.settings) {
-                const savedKey = json.settings.apiKey;
-                const tempKey = configs.apiKey; // Keep the one we just fetched from HA
                 window.configs = { ...configs, ...json.settings };
                 // v2.20.3: Ensure locationOrder exists
                 if (!configs.locationOrder) configs.locationOrder = [...configs.locations];
-
-                // If HA config has key, it overrides saved key
-                if (tempKey) configs.apiKey = tempKey;
             }
         }
         // Success feedback implicit by rendering
