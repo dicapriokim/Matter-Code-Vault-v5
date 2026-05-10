@@ -205,7 +205,7 @@ async function executeAiAnalysis(base64Data) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: VISION_MODEL,
-                prompt: "Describe all visible Matter QR codes (starting with MT:) and 11-digit pairing codes in this image. Be precise. Pay close attention to slashed zeros '0' which are often misread as '8'.",
+                prompt: "Describe all visible Matter QR codes (starting with MT:) and 11-digit pairing codes in this image. Be precise.",
                 images: [base64Data],
                 stream: false,
                 options: { keep_alive: "5m" }
@@ -220,14 +220,42 @@ async function executeAiAnalysis(base64Data) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: REASONING_MODEL,
-                prompt: `Based on the description, extract the Matter QR and the 11-digit code as strict JSON { "mt": "MT:...", "code": "xxxx-xxx-xxxx" }. Rule: Slashed zeros MUST be transcribed as the digit '0'. Output EXACTLY 11 digits for the code. Do NOT add any notes, explanations, or extra text. Description: ${visionText}`,
+                prompt: `Based on the description, extract the Matter QR and the 11-digit code as strict JSON { "mt": "MT:...", "code": "xxxx-xxx-xxxx" }. Description: ${visionText}`,
                 stream: false,
                 format: "json",
                 options: { temperature: 0.1, keep_alive: "5m" }
             })
         });
         const reasoningData = await reasoningRes.json();
-        const info = JSON.parse(reasoningData.response);
+        let info = JSON.parse(reasoningData.response);
+
+        // --- Pass 2: Rapid Zoom Check for Slashed Zeros ---
+        const hasPotentialZero = info.code && (info.code.includes('8') || info.code.includes('0'));
+        if (hasPotentialZero) {
+            const overlay = document.getElementById('aiLoadingOverlay');
+            if (overlay) overlay.innerHTML = '<span class="text-orange-600 font-bold text-sm">🤖 정밀 확대 판독 중...</span>';
+            
+            const zoomRes = await fetch(OLLAMA_PROXY_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: VISION_MODEL,
+                    prompt: `In the pairing code "${info.code}", are any '8's actually '0's with a diagonal slash? Answer with the corrected 11-digit code only.`,
+                    images: [base64Data],
+                    stream: false,
+                    options: { num_predict: 20, keep_alive: "5m" }
+                })
+            });
+            
+            if (zoomRes.ok) {
+                const zoomData = await zoomRes.json();
+                const matched = zoomData.response.match(/\d{4}-\d{3}-\d{4}/) || zoomData.response.match(/\d{11}/);
+                if (matched) {
+                    console.log("[AI Zoom] Corrected:", matched[0]);
+                    info.code = matched[0];
+                }
+            }
+        }
 
         if (info.code) handleInput(info.code);
         if (info.mt) {
