@@ -215,7 +215,9 @@ function applyDecodedInfo(decoded) {
             opt.value = vendorName; opt.innerText = vendorName;
             selectEl.appendChild(opt);
         }
-        selectEl.value = vendorName; showToast(`제조사 자동 선택: ${vendorName}`);
+        selectEl.value = vendorName; 
+        selectEl.classList.remove('is-default');
+        showToast(`제조사 자동 선택: ${vendorName}`);
     } else { showToast(`제조사 정보 없음 (VID: ${decoded.vid})`); }
 }
 

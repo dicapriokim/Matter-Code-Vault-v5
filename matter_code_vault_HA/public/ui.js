@@ -108,6 +108,11 @@ function openModal(editId = null) {
             document.getElementById('modalTitle').innerText = '정보 수정';
             if (quickScan) quickScan.classList.add('hidden');
             if (dateDisplay) dateDisplay.innerText = `Registered: ${d.date || ''}`;
+
+            // Remove default state for all selects in edit mode
+            ['devManufacturer', 'devType', 'devLoc', 'devPlatform'].forEach(id => {
+                document.getElementById(id).classList.remove('is-default');
+            });
         }
     } else {
         document.getElementById('editId').value = '';
@@ -118,6 +123,11 @@ function openModal(editId = null) {
         document.getElementById('modalTitle').innerText = '새 기기 등록';
         if (quickScan) quickScan.classList.remove('hidden');
         if (dateDisplay) dateDisplay.innerText = `Registered: ${new Date().toLocaleDateString()}`;
+
+        // Reset to default state for all selects in new mode
+        ['devManufacturer', 'devType', 'devLoc', 'devPlatform'].forEach(id => {
+            document.getElementById(id).classList.add('is-default');
+        });
     }
     document.getElementById('modal').classList.remove('hidden');
     const scrollable = document.querySelector('#modal .overflow-y-auto');

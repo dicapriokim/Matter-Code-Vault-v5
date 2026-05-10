@@ -374,6 +374,15 @@
         .group:hover .card-action-btn {
             opacity: 1;
         }
+
+        /* Default vs Set State for Inputs */
+        .input-field.is-default {
+            color: #cbd5e1 !important; /* slate-300 (matches standard placeholder feel) */
+        }
+        
+        .input-field {
+            color: #1e293b; /* slate-900 (default set color) */
+        }
     </style>
 </head>
 
@@ -1017,11 +1026,11 @@
                         <div>
                             <label class="input-group-label">제조사 <span id="vidDisplay"
                                     class="ml-1 text-[9px] font-mono text-indigo-500"></span></label>
-                            <select id="devManufacturer" class="input-field bg-white appearance-none"></select>
+                            <select id="devManufacturer" onchange="this.classList.remove('is-default')" class="input-field is-default bg-white appearance-none"></select>
                         </div>
                         <div>
                             <label class="input-group-label">기기 종류</label>
-                            <select id="devType" class="input-field bg-white appearance-none"></select>
+                            <select id="devType" onchange="this.classList.remove('is-default')" class="input-field is-default bg-white appearance-none"></select>
                         </div>
                     </div>
                 </div>
@@ -1029,11 +1038,11 @@
                 <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
                     <div>
                         <label class="input-group-label">설치 장소</label>
-                        <select id="devLoc" class="input-field bg-white appearance-none"></select>
+                        <select id="devLoc" onchange="this.classList.remove('is-default')" class="input-field is-default bg-white appearance-none"></select>
                     </div>
                     <div>
                         <label class="input-group-label">플랫폼</label>
-                        <select id="devPlatform" class="input-field bg-white appearance-none"></select>
+                        <select id="devPlatform" onchange="this.classList.remove('is-default')" class="input-field is-default bg-white appearance-none"></select>
                     </div>
                 </div>
 

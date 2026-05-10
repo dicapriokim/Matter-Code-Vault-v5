@@ -1,6 +1,6 @@
 {
   "name": "matter-code-vault-addon",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Matter Code Vault Home Assistant Add-on (v4.0.3) - Includes Block-by-block Base38 Engine",
   "main": "server.js",
   "scripts": {

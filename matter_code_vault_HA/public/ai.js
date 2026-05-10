@@ -50,7 +50,8 @@ async function sendAiQuery() {
     output.scrollTop = output.scrollHeight;
     input.value = '';
 
-    const response = await askOllama(query, REASONING_MODEL, false);
+    const systemInstruction = "너는 스마트홈, IoT, Matter 표준 전문 AI 어시스턴트야. 별도의 언급이 없더라도 모든 답변은 스마트홈, 홈 자동화, IoT 기기 맥락에서 전문적으로 답변해줘. 브랜드명(예: 아카라, 필립스 휴 등)은 일반 명사가 아닌 IoT 제품 브랜드로 인식해야 해. ";
+    const response = await askOllama(systemInstruction + query, REASONING_MODEL, false);
 
     const loadingEl = document.getElementById(loadingId);
     if (loadingEl) loadingEl.remove();

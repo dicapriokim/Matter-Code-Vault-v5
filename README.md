@@ -1,6 +1,6 @@
-# Matter Code Vault HA (v4.2.0)
+# Matter Code Vault HA (v4.2.1)
 
-> Matter Device Management & QR Code Backup/Restore Tool (v4.2.0)
+> Matter Device Management & QR Code Backup/Restore Tool (v4.2.1)
 
 Matter Code Vault is a powerful Home Assistant add-on designed for seamless Matter device management. Securely back up complex pairing codes and QR codes, and manage them intelligently using AI-driven features.
 
@@ -21,21 +21,22 @@ https://github.com/dicapriokim/Matter-Code-Vault-Pcroom.git
 
 ---
 
-## ✨ UI/UX Refinement (v4.2.0)
+## ✨ Smart Interaction Hotfix (v4.2.1)
 
 - **Backend AI Proxy**: Integrated backend proxy to resolve Mixed Content (HTTPS -> HTTP) and CORS issues, ensuring stable AI communication in Home Assistant environments.
 - **Dynamic Loading UI**: Soft pulsing "Analyzing..." indicators for AI and standard OCR/QR scans to provide clear visual feedback during processing.
 - **Local AI Engine (Ollama)**: Advanced reasoning using `antigravity-model:3b` for intelligent device naming and OCR error correction.
 - **Modular Architecture**: Optimized modular structure (`state.js`, `ui.js`, `ai.js`, `scanner.js`) for high performance and maintainability.
 - **Dual Storage Vault**: Redundant saving system via HA Backend API and Browser `localStorage`.
-- **Premium 3D UI (v4.2.0)**: Redesigned modal components with sophisticated 3D close buttons and improved layout.
-- **Adaptive Card Actions (v4.2.0)**: Sophisticated multi-stage hover interaction for device management icons (Hidden -> Faint -> Colored).
+- **AI Context Enforcement (v4.2.1)**: Locked AI reasoning to Smart Home/IoT domain to prevent branding hallucinations (e.g., Aqara).
+- **Smart Input States**: Visual color distinction between default and user/AI-set fields for better clarity.
+- **Adaptive Card Actions (v4.2.0)**: Sophisticated multi-stage hover interaction for device management icons.
 - **Modal Auto-Scroll**: Intelligent scroll-to-top behavior for all modals to enhance user interaction flow.
 - **Label Ready**: High-quality QR generation optimized for thermal label printers.
 
 ---
 
-## 📖 Quick Start Guide (v4.2.0)
+## 📖 Quick Start Guide (v4.2.1)
 
 ### 1. Initial Setup
 Before adding devices, configure your ecosystem in the **[Settings ⚙️]** menu to ensure data consistency:
