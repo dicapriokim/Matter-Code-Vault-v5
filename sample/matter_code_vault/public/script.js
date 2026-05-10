@@ -1,4 +1,4 @@
-const APP_VERSION = "2.22.7";
+const APP_VERSION = "3.2.1";
 const CURRENT_AI_MODEL = "gemini-2.5-flash-preview-09-2025";
 
 // --- STATE MANAGEMENT ---
