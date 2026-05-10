@@ -229,6 +229,31 @@ async function executeAiAnalysis(base64Data) {
         const reasoningData = await reasoningRes.json();
         const info = JSON.parse(reasoningData.response);
 
+        // --- Algorithmic Voting: Cross-Validation for Slashed Zeros (v3.3.2) ---
+        const existingInput = document.getElementById('devPayload');
+        if (info.code && existingInput && existingInput.value) {
+            const existingCode = existingInput.value.replace(/-/g, '');
+            let aiCodeRaw = info.code.replace(/-/g, '');
+
+            // 두 코드 모두 11자리일 때만 1:1 문자 대조 실행
+            if (existingCode.length === 11 && aiCodeRaw.length === 11) {
+                let mergedCode = "";
+                for (let i = 0; i < 11; i++) {
+                    // 한쪽이라도 0이고 다른 한쪽이 8이면, Slashed Zero 오인식으로 간주하고 '0' 채택
+                    if ((existingCode[i] === '0' && aiCodeRaw[i] === '8') || 
+                        (existingCode[i] === '8' && aiCodeRaw[i] === '0')) {
+                        mergedCode += '0';
+                    } else {
+                        // 그 외의 경우는 정밀도가 높은 AI(aiCodeRaw)의 결과를 우선 신뢰
+                        mergedCode += aiCodeRaw[i];
+                    }
+                }
+                // 병합된 코드를 다시 포맷팅 (xxxx-xxx-xxxx)
+                info.code = mergedCode.replace(/(\d{4})(\d{3})(\d{4})/, '$1-$2-$3');
+                console.log("[Cross-Validation] Merged Code applied:", info.code);
+            }
+        }
+
         if (info.code) handleInput(info.code);
         if (info.mt) {
             currentVerifiedMt = info.mt;
