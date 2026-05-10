@@ -73,4 +73,13 @@ This add-on features a built-in **Backend AI Proxy** to enable stable communicat
 
 ---
 
-**Designed by 돼지지렁이**
+---
+
+Designed by **돼지지렁이 (PigWorm)** v.5.0.0
+
+### 📄 라이선스 (License)
+이 프로젝트는 **MIT 라이선스** 하에 배포됩니다.  
+Copyright (c) 2026 돼지지렁이. All rights reserved.
+
+### 👑 Contributor
+- **돼지지렁이** (Antigravity Developer)
