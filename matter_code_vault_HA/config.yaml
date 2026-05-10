@@ -1,5 +1,5 @@
 name: "Matter-Code-PCroom"
-version: "3.3.7"
+version: "3.3.2"
 slug: "matter_code_vault"
 description: "Matter 기기 관리 및 QR 코드 백업/복원 도구입니다."
 url: "https://github.com/dicapriokim/Matter-Code-Vault-Pcroom.git"

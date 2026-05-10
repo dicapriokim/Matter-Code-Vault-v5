@@ -62,16 +62,10 @@ function onScanSuccess(decodedText) {
         document.getElementById('qrStatusIcon').classList.remove('hidden');
         const decoded = decodeMatterPayload(decodedText);
         applyDecodedInfo(decoded);
-        if (decoded && decoded.passcode) {
-            handleInput(decoded.passcode);
-            showToast("QR 기반 데이터 인식 완료!"); 
-            stopCamera();
-        } else {
-            const currentCode = document.getElementById('devPayload').value;
-            if (currentCode && currentCode.replace(/-/g, '').length === 11) {
-                showToast("데이터 인식 완료!"); stopCamera();
-            } else showToast("QR 인식됨! 숫자를 찾는 중...");
-        }
+        const currentCode = document.getElementById('devPayload').value;
+        if (currentCode && currentCode.replace(/-/g, '').length === 11) {
+            showToast("데이터 인식 완료!"); stopCamera();
+        } else showToast("QR 인식됨! 숫자를 찾는 중...");
     }
 }
 
@@ -146,14 +140,7 @@ async function processOcrImage(event) {
             document.getElementById('devMtPayload').value = qrCode;
             document.getElementById('displayMtPayload').value = qrCode;
             document.getElementById('qrStatusIcon').classList.remove('hidden');
-            const decoded = decodeMatterPayload(qrCode);
-            applyDecodedInfo(decoded);
-            if (decoded && decoded.passcode) {
-                handleInput(decoded.passcode);
-                showToast("QR 데이터 추출 성공");
-            } else {
-                showToast("QR 인식 성공");
-            }
+            applyDecodedInfo(decodeMatterPayload(qrCode));
         }
 
         // Fallback: If QR didn't fill the 11-digit pairing code, try OCR
@@ -273,12 +260,7 @@ async function executeAiAnalysis(base64Data) {
             document.getElementById('devMtPayload').value = info.mt;
             document.getElementById('displayMtPayload').value = info.mt;
             document.getElementById('qrStatusIcon').classList.remove('hidden');
-            const decoded = decodeMatterPayload(info.mt);
-            applyDecodedInfo(decoded);
-            if (decoded && decoded.passcode) {
-                console.log("[AI-QR] Correcting code from digital payload:", decoded.passcode);
-                info.code = decoded.passcode;
-            }
+            applyDecodedInfo(decodeMatterPayload(info.mt));
         }
         showToast("AI 분석 완료");
     } catch (e) {

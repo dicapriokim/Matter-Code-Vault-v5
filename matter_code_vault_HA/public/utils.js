@@ -141,11 +141,9 @@ function decodeMatterPayload(payload) {
             if (charCode === -1) return null;
             bigIntValue = bigIntValue * BigInt(38) + BigInt(charCode);
         }
-        // Matter Spec: VID(3-18), PID(19-34), Passcode(57-83)
         const vid = Number((bigIntValue >> BigInt(3)) & BigInt(0xFFFF));
         const setupPin = Number((bigIntValue >> BigInt(57)) & BigInt(0x7FFFFFF));
-        const passcode = setupPin.toString().padStart(11, '0').replace(/(\d{4})(\d{3})(\d{4})/, '$1-$2-$3');
-        return { vid, setupPin, passcode };
+        return { vid, setupPin };
     } catch (e) { return null; }
 }
 
